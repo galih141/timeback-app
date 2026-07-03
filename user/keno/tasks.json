@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "id": "mr4w54pdbav3x",
+    "name": "Simple taks",
+    "targetSeconds": 1500,
+    "remainingAtStart": 1500,
+    "running": false,
+    "startedAt": null,
+    "completed": false,
+    "updatedAt": 1783080584978
+  }
+]
