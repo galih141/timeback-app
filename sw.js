@@ -1,4 +1,4 @@
-const CACHE = 'timeback-v1';
+const CACHE = 'timeback-v2';
 const ASSETS = ['./index.html', './manifest.json', './icon.svg'];
 
 self.addEventListener('install', e => {
