@@ -4,8 +4,8 @@
   "description": "A to-do list where time counts down, not up.",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#14131F",
-  "theme_color": "#14131F",
+  "background_color": "#0F172A",
+  "theme_color": "#0F172A",
   "icons": [
     { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
   ]
