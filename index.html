@@ -62,12 +62,11 @@
     display:flex;align-items:center;justify-content:center;font-size:15px;
   }
   .icon-btn:active{transform:scale(0.95);}
-  .sync-btn{
+  .sync-pill{
     background:none;border:1px solid var(--hairline);color:var(--text-muted);
-    border-radius:20px;padding:6px 12px;font-size:12px;cursor:pointer;
+    border-radius:20px;padding:6px 12px;font-size:12px;
     display:flex;align-items:center;gap:6px;
   }
-  .sync-btn:active{transform:scale(0.97);}
   .sync-dot{width:6px;height:6px;border-radius:50%;background:var(--text-muted);flex:none;}
   .sync-dot.ok{background:var(--done);}
   .sync-dot.err{background:var(--danger);}
@@ -142,29 +141,6 @@
     text-align:center;color:var(--text-muted);padding:40px 20px;font-size:14px;
   }
 
-  .modal-backdrop{
-    position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;
-    align-items:center;justify-content:center;padding:20px;z-index:10;
-  }
-  .modal-backdrop.open{display:flex;}
-  .modal{
-    background:var(--surface);border:1px solid var(--hairline);border-radius:16px;
-    padding:20px;max-width:420px;width:100%;
-  }
-  .modal h2{margin:0 0 4px;font-size:17px;}
-  .modal p{color:var(--text-muted);font-size:13px;line-height:1.5;margin:0 0 16px;}
-  .modal label{display:block;font-size:12px;color:var(--text-muted);margin:12px 0 4px;}
-  .modal input{
-    width:100%;background:var(--surface-2);border:1px solid var(--hairline);
-    color:var(--text);border-radius:10px;padding:10px 12px;font-size:14px;
-  }
-  .modal-actions{display:flex;gap:8px;margin-top:18px;}
-  .modal-actions button{
-    flex:1;border-radius:10px;padding:11px;font-size:14px;font-weight:600;cursor:pointer;
-  }
-  .modal-actions .save{background:var(--accent);color:var(--accent-ink);border:none;}
-  .modal-actions .cancel{background:transparent;border:1px solid var(--hairline);color:var(--text);}
-
   /* Login screen */
   #loginScreen{
     position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;
@@ -212,10 +188,10 @@
   <h1>Time<span>Back</span></h1>
   <div class="header-actions">
     <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme">☀</button>
-    <button class="sync-btn" id="syncBtn" onclick="openSettings()">
+    <div class="sync-pill" id="syncPill">
       <span class="sync-dot" id="syncDot"></span>
-      <span id="syncLabel">Setup sync</span>
-    </button>
+      <span id="syncLabel">Sync</span>
+    </div>
   </div>
 </header>
 
@@ -247,35 +223,27 @@
   <div id="taskList"></div>
 </main>
 
-<div class="modal-backdrop" id="settingsModal">
-  <div class="modal">
-    <h2>Sync with GitHub</h2>
-    <p>Your tasks save to /user/&lt;name&gt;/tasks.json in this repo, so desktop and phone stay in sync, even when the other device is off. Set this up once per device.</p>
-    <label>GitHub username</label>
-    <input type="text" id="ghUser" placeholder="yourusername">
-    <label>Repo name</label>
-    <input type="text" id="ghRepo" placeholder="timeback-app">
-    <label>Branch</label>
-    <input type="text" id="ghBranch" placeholder="main" value="main">
-    <label>Personal access token</label>
-    <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxx">
-    <div class="modal-actions">
-      <button class="cancel" onclick="closeSettings()">Cancel</button>
-      <button class="save" onclick="saveSettings()">Save & sync</button>
-    </div>
-  </div>
-</div>
-
 <script>
-const SETTINGS_KEY = 'timeback_settings_v1';
+/* =======================================================
+   GITHUB CONFIG — fill these in before uploading.
+   REPO and BRANCH are already correct for this project.
+   Only GITHUB_USER and GITHUB_TOKEN need your own values.
+   ======================================================= */
+const GITHUB_USER   = "PASTE_YOUR_GITHUB_USERNAME_HERE";
+const GITHUB_REPO   = "timeback-app";
+const GITHUB_BRANCH = "main";
+const GITHUB_TOKEN  = "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";
+/* ======================================================= */
+
 const CURRENT_USER_KEY = 'timeback_current_user';
 const THEME_KEY = 'timeback_theme';
 
 let currentUser = localStorage.getItem(CURRENT_USER_KEY) || null;
-let settings = JSON.parse(localStorage.getItem(SETTINGS_KEY) || 'null');
 let tasks = [];
 let dirty = false;
 let fileSha = null;
+
+const configured = GITHUB_USER !== "PASTE_YOUR_GITHUB_USERNAME_HERE" && GITHUB_TOKEN !== "PASTE_YOUR_TOKEN_HERE";
 
 function tasksKey(){ return `timeback_tasks_${currentUser}`; }
 
@@ -323,7 +291,7 @@ function enterApp(){
   document.getElementById('whoName').textContent = currentUser;
   tasks = JSON.parse(localStorage.getItem(tasksKey()) || '[]');
   render();
-  if(settings) pullThenPush(); else updateSyncBadge(null);
+  if(configured) pullThenPush(); else updateSyncBadge('err', 'Not configured');
 }
 
 function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
@@ -475,61 +443,33 @@ setInterval(()=>{
 let syncTimer = null;
 function scheduleSync(){
   updateSyncBadge('pending');
-  if(!settings) return;
+  if(!configured) return;
   clearTimeout(syncTimer);
   syncTimer = setTimeout(pushToGitHub, 1500);
 }
 
-function updateSyncBadge(state){
+function updateSyncBadge(state, customLabel){
   const dot = document.getElementById('syncDot');
   const label = document.getElementById('syncLabel');
   if(!dot) return;
   dot.className = 'sync-dot' + (state ? ' '+state : '');
-  if(!settings){ label.textContent = 'Setup sync'; return; }
+  if(customLabel){ label.textContent = customLabel; return; }
   if(state==='ok') label.textContent = 'Synced';
   else if(state==='pending') label.textContent = 'Syncing…';
   else if(state==='err') label.textContent = 'Sync failed';
-  else label.textContent = settings.repo;
-}
-
-function openSettings(){
-  if(settings){
-    document.getElementById('ghUser').value = settings.user;
-    document.getElementById('ghRepo').value = settings.repo;
-    document.getElementById('ghBranch').value = settings.branch;
-    document.getElementById('ghToken').value = settings.token;
-  }
-  document.getElementById('settingsModal').classList.add('open');
-}
-function closeSettings(){
-  document.getElementById('settingsModal').classList.remove('open');
-}
-function saveSettings(){
-  const user = document.getElementById('ghUser').value.trim();
-  const repo = document.getElementById('ghRepo').value.trim();
-  const branch = document.getElementById('ghBranch').value.trim() || 'main';
-  const token = document.getElementById('ghToken').value.trim();
-  if(!user || !repo || !token){
-    alert('Fill in username, repo, and token.');
-    return;
-  }
-  settings = { user, repo, branch, token };
-  localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
-  closeSettings();
-  fileSha = null;
-  pullThenPush();
+  else label.textContent = 'Sync';
 }
 
 function apiUrl(){
-  return `https://api.github.com/repos/${settings.user}/${settings.repo}/contents/user/${currentUser}/tasks.json`;
+  return `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/user/${currentUser}/tasks.json`;
 }
 
 async function pullFromGitHub(){
-  if(!settings || !currentUser) return null;
+  if(!configured || !currentUser) return null;
   updateSyncBadge('pending');
   try{
-    const res = await fetch(apiUrl() + `?ref=${settings.branch}`, {
-      headers: { 'Authorization': `token ${settings.token}`, 'Accept': 'application/vnd.github+json' }
+    const res = await fetch(apiUrl() + `?ref=${GITHUB_BRANCH}`, {
+      headers: { 'Authorization': `token ${GITHUB_TOKEN}`, 'Accept': 'application/vnd.github+json' }
     });
     if(res.status===404){ fileSha=null; return null; }
     if(!res.ok) throw new Error('pull failed');
@@ -544,19 +484,19 @@ async function pullFromGitHub(){
 }
 
 async function pushToGitHub(){
-  if(!settings || !currentUser) return;
+  if(!configured || !currentUser) return;
   updateSyncBadge('pending');
   try{
     const body = {
       message: `Update tasks for ${currentUser} ` + new Date().toISOString(),
       content: btoa(unescape(encodeURIComponent(JSON.stringify(tasks, null, 2)))),
-      branch: settings.branch
+      branch: GITHUB_BRANCH
     };
     if(fileSha) body.sha = fileSha;
     const res = await fetch(apiUrl(), {
       method: 'PUT',
       headers: {
-        'Authorization': `token ${settings.token}`,
+        'Authorization': `token ${GITHUB_TOKEN}`,
         'Accept': 'application/vnd.github+json',
         'Content-Type': 'application/json'
       },
