@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>TimeBack</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#14131F">
+<meta name="theme-color" content="#0F172A">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>
   :root, [data-theme="dark"]{
-    --bg:#14131F; --surface:#1E1D2E; --surface-2:#262538;
-    --accent:#F2A65A; --accent-ink:#1A1305; --accent-dim:#7A5A34;
-    --done:#6FCF97; --danger:#E85D5D; --text:#EDEBF5; --text-muted:#8A87A3; --hairline:#312F45;
+    --bg:#3A3A3A; --surface:#555555; --surface-2:#888888;
+    --accent:#c58634; --accent-ink:#1a0b05; --accent-dim:#c58634;
+    --done:#6FCF97; --danger:#E85D5D; --text:#F1F5F9; --text-muted:#94A3B8; --hairline:#7d8794;
   }
   [data-theme="light"]{
     --bg:#F7F4EE; --surface:#FFFFFF; --surface-2:#F1EDE3;
@@ -191,7 +191,7 @@ function applyTheme(t){
   document.documentElement.setAttribute('data-theme', t);
   document.getElementById('themeBtn').textContent = t === 'dark' ? '☀' : '☾';
   const meta = document.querySelector('meta[name=theme-color]');
-  if(meta) meta.setAttribute('content', t === 'dark' ? '#14131F' : '#F7F4EE');
+  if(meta) meta.setAttribute('content', t === 'dark' ? '#0F172A' : '#F7F4EE');
 }
 function toggleTheme(){
   const cur = document.documentElement.getAttribute('data-theme');
