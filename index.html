@@ -9,159 +9,82 @@
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>
   :root, [data-theme="dark"]{
-    --bg:#14131F;
-    --surface:#1E1D2E;
-    --surface-2:#262538;
-    --accent:#F2A65A;
-    --accent-ink:#1A1305;
-    --accent-dim:#7A5A34;
-    --done:#6FCF97;
-    --danger:#E85D5D;
-    --text:#EDEBF5;
-    --text-muted:#8A87A3;
-    --hairline:#312F45;
+    --bg:#14131F; --surface:#1E1D2E; --surface-2:#262538;
+    --accent:#F2A65A; --accent-ink:#1A1305; --accent-dim:#7A5A34;
+    --done:#6FCF97; --danger:#E85D5D; --text:#EDEBF5; --text-muted:#8A87A3; --hairline:#312F45;
   }
   [data-theme="light"]{
-    --bg:#F7F4EE;
-    --surface:#FFFFFF;
-    --surface-2:#F1EDE3;
-    --accent:#C97C3D;
-    --accent-ink:#FFFFFF;
-    --accent-dim:#E7C39B;
-    --done:#2F9E5B;
-    --danger:#C7402E;
-    --text:#231F33;
-    --text-muted:#726E85;
-    --hairline:#E4DFD1;
+    --bg:#F7F4EE; --surface:#FFFFFF; --surface-2:#F1EDE3;
+    --accent:#C97C3D; --accent-ink:#FFFFFF; --accent-dim:#E7C39B;
+    --done:#2F9E5B; --danger:#C7402E; --text:#231F33; --text-muted:#726E85; --hairline:#E4DFD1;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{
-    background:var(--bg);
-    color:var(--text);
+    background:var(--bg); color:var(--text);
     font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    min-height:100vh;
-    padding:24px 16px 80px;
-    -webkit-font-smoothing:antialiased;
+    min-height:100vh; padding:24px 16px 80px; -webkit-font-smoothing:antialiased;
     transition:background 0.25s, color 0.25s;
   }
   .mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,"Roboto Mono",monospace;}
-
-  header{
-    max-width:520px;margin:0 auto 28px auto;
-    display:flex;align-items:center;justify-content:space-between;gap:8px;
-  }
-  header h1{
-    font-size:22px;letter-spacing:0.02em;margin:0;font-weight:700;
-  }
+  header{max-width:520px;margin:0 auto 28px auto;display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  header h1{font-size:22px;letter-spacing:0.02em;margin:0;font-weight:700;}
   header h1 span{color:var(--accent);}
   .header-actions{display:flex;align-items:center;gap:8px;}
-  .icon-btn{
-    background:none;border:1px solid var(--hairline);color:var(--text-muted);
-    border-radius:20px;width:34px;height:34px;cursor:pointer;
-    display:flex;align-items:center;justify-content:center;font-size:15px;
-  }
+  .icon-btn{background:none;border:1px solid var(--hairline);color:var(--text-muted);border-radius:20px;width:34px;height:34px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;}
   .icon-btn:active{transform:scale(0.95);}
-  .sync-pill{
-    background:none;border:1px solid var(--hairline);color:var(--text-muted);
-    border-radius:20px;padding:6px 12px;font-size:12px;
-    display:flex;align-items:center;gap:6px;
-  }
+  .sync-btn{background:none;border:1px solid var(--hairline);color:var(--text-muted);border-radius:20px;padding:6px 12px;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:6px;}
+  .sync-btn:active{transform:scale(0.97);}
   .sync-dot{width:6px;height:6px;border-radius:50%;background:var(--text-muted);flex:none;}
-  .sync-dot.ok{background:var(--done);}
-  .sync-dot.err{background:var(--danger);}
-  .sync-dot.pending{background:var(--accent);}
-
+  .sync-dot.ok{background:var(--done);} .sync-dot.err{background:var(--danger);} .sync-dot.pending{background:var(--accent);}
   main{max-width:520px;margin:0 auto;}
-
-  .user-pill{
-    max-width:520px;margin:0 auto 20px auto;display:flex;align-items:center;
-    justify-content:space-between;background:var(--surface);border:1px solid var(--hairline);
-    border-radius:14px;padding:10px 14px;
-  }
+  .user-pill{max-width:520px;margin:0 auto 20px auto;display:flex;align-items:center;justify-content:space-between;background:var(--surface);border:1px solid var(--hairline);border-radius:14px;padding:10px 14px;}
   .user-pill .who{font-size:13px;color:var(--text-muted);}
   .user-pill .who b{color:var(--text);}
-  .logout-btn{
-    background:none;border:1px solid var(--hairline);color:var(--danger);
-    border-radius:8px;padding:6px 12px;font-size:12px;cursor:pointer;font-weight:600;
-  }
+  .logout-btn{background:none;border:1px solid var(--hairline);color:var(--danger);border-radius:8px;padding:6px 12px;font-size:12px;cursor:pointer;font-weight:600;}
   .logout-btn:active{transform:scale(0.97);}
-
-  .add-form{
-    background:var(--surface);border:1px solid var(--hairline);
-    border-radius:16px;padding:16px;margin-bottom:24px;
-  }
-  .add-form input[type=text]{
-    width:100%;background:var(--surface-2);border:1px solid var(--hairline);
-    color:var(--text);border-radius:10px;padding:12px 14px;font-size:15px;
-    margin-bottom:10px;
-  }
+  .add-form{background:var(--surface);border:1px solid var(--hairline);border-radius:16px;padding:16px;margin-bottom:24px;}
+  .add-form input[type=text]{width:100%;background:var(--surface-2);border:1px solid var(--hairline);color:var(--text);border-radius:10px;padding:12px 14px;font-size:15px;margin-bottom:10px;}
   .time-inputs{display:flex;gap:8px;margin-bottom:12px;}
   .time-inputs div{flex:1;}
-  .time-inputs label{
-    display:block;font-size:11px;color:var(--text-muted);margin-bottom:4px;
-    text-transform:uppercase;letter-spacing:0.05em;
-  }
-  .time-inputs input[type=number]{
-    width:100%;background:var(--surface-2);border:1px solid var(--hairline);
-    color:var(--text);border-radius:10px;padding:10px;font-size:16px;text-align:center;
-  }
-  .add-btn{
-    width:100%;background:var(--accent);color:var(--accent-ink);border:none;
-    border-radius:10px;padding:12px;font-size:15px;font-weight:700;cursor:pointer;
-  }
+  .time-inputs label{display:block;font-size:11px;color:var(--text-muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.05em;}
+  .time-inputs input[type=number]{width:100%;background:var(--surface-2);border:1px solid var(--hairline);color:var(--text);border-radius:10px;padding:10px;font-size:16px;text-align:center;}
+  .add-btn{width:100%;background:var(--accent);color:var(--accent-ink);border:none;border-radius:10px;padding:12px;font-size:15px;font-weight:700;cursor:pointer;}
   .add-btn:active{transform:scale(0.98);}
-
-  .task{
-    background:var(--surface);border:1px solid var(--hairline);
-    border-radius:16px;padding:16px 18px;margin-bottom:12px;
-    transition:border-color 0.3s, background 0.3s;
-  }
-  .task.running{border-color:var(--accent-dim);}
-  .task.done{border-color:var(--done);}
+  .task{background:var(--surface);border:1px solid var(--hairline);border-radius:16px;padding:16px 18px;margin-bottom:12px;transition:border-color 0.3s, background 0.3s;}
+  .task.running{border-color:var(--accent-dim);} .task.done{border-color:var(--done);}
   .task-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
   .task-name{font-size:16px;font-weight:600;word-break:break-word;}
   .task-target{font-size:12px;color:var(--text-muted);margin-top:2px;}
-  .task-timer{
-    font-size:34px;font-weight:700;letter-spacing:0.02em;margin:14px 0 12px;
-    font-variant-numeric:tabular-nums;
-  }
-  .task.done .task-timer{color:var(--done);}
-  .task.running .task-timer{color:var(--accent);}
+  .task-timer{font-size:34px;font-weight:700;letter-spacing:0.02em;margin:14px 0 12px;font-variant-numeric:tabular-nums;}
+  .task.done .task-timer{color:var(--done);} .task.running .task-timer{color:var(--accent);}
   .task-actions{display:flex;gap:8px;}
-  .task-actions button{
-    flex:1;border-radius:8px;padding:9px;font-size:13px;font-weight:600;
-    border:1px solid var(--hairline);background:var(--surface-2);color:var(--text);cursor:pointer;
-  }
+  .task-actions button{flex:1;border-radius:8px;padding:9px;font-size:13px;font-weight:600;border:1px solid var(--hairline);background:var(--surface-2);color:var(--text);cursor:pointer;}
   .task-actions button.primary{background:var(--accent);color:var(--accent-ink);border:none;}
   .task-actions button.danger-txt{color:var(--danger);}
   .task-actions button:active{transform:scale(0.97);}
-
-  .empty{
-    text-align:center;color:var(--text-muted);padding:40px 20px;font-size:14px;
-  }
-
-  /* Login screen */
-  #loginScreen{
-    position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;
-    padding:20px;z-index:20;
-  }
-  .login-card{
-    max-width:340px;width:100%;text-align:center;
-  }
+  .empty{text-align:center;color:var(--text-muted);padding:40px 20px;font-size:14px;}
+  .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;padding:20px;z-index:10;}
+  .modal-backdrop.open{display:flex;}
+  .modal{background:var(--surface);border:1px solid var(--hairline);border-radius:16px;padding:20px;max-width:420px;width:100%;max-height:90vh;overflow-y:auto;}
+  .modal h2{margin:0 0 4px;font-size:17px;}
+  .modal p{color:var(--text-muted);font-size:13px;line-height:1.5;margin:0 0 16px;}
+  .modal label{display:block;font-size:12px;color:var(--text-muted);margin:12px 0 4px;}
+  .modal input{width:100%;background:var(--surface-2);border:1px solid var(--hairline);color:var(--text);border-radius:10px;padding:10px 12px;font-size:14px;}
+  .modal-actions{display:flex;gap:8px;margin-top:18px;}
+  .modal-actions button{flex:1;border-radius:10px;padding:11px;font-size:14px;font-weight:600;cursor:pointer;}
+  .modal-actions .save{background:var(--accent);color:var(--accent-ink);border:none;}
+  .modal-actions .cancel{background:transparent;border:1px solid var(--hairline);color:var(--text);}
+  .copy-link-btn{width:100%;margin-top:10px;background:var(--surface-2);border:1px solid var(--hairline);color:var(--text);border-radius:10px;padding:11px;font-size:13px;font-weight:600;cursor:pointer;}
+  .copy-link-btn:active{transform:scale(0.98);}
+  #loginScreen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px;z-index:20;}
+  .login-card{max-width:340px;width:100%;text-align:center;}
   .login-card .icon-hourglass{width:56px;height:56px;margin:0 auto 18px;}
   .login-card h1{font-size:26px;margin:0 0 6px;}
   .login-card h1 span{color:var(--accent);}
   .login-card p{color:var(--text-muted);font-size:13px;margin:0 0 24px;line-height:1.5;}
-  .login-card input{
-    width:100%;background:var(--surface);border:1px solid var(--hairline);
-    color:var(--text);border-radius:12px;padding:14px 16px;font-size:16px;text-align:center;
-    margin-bottom:12px;
-  }
-  .login-card button{
-    width:100%;background:var(--accent);color:var(--accent-ink);border:none;
-    border-radius:12px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;
-  }
+  .login-card input{width:100%;background:var(--surface);border:1px solid var(--hairline);color:var(--text);border-radius:12px;padding:14px 16px;font-size:16px;text-align:center;margin-bottom:12px;}
+  .login-card button{width:100%;background:var(--accent);color:var(--accent-ink);border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;}
   .login-card button:active{transform:scale(0.98);}
   .hidden{display:none !important;}
 </style>
@@ -172,8 +95,7 @@
   <div class="login-card">
     <svg class="icon-hourglass" viewBox="0 0 200 200">
       <rect width="200" height="200" rx="40" fill="var(--surface-2)"/>
-      <path d="M62 50 H138 V70 L108 100 L138 130 V150 H62 V130 L92 100 L62 70 Z"
-        fill="none" stroke="var(--accent)" stroke-width="8" stroke-linejoin="round"/>
+      <path d="M62 50 H138 V70 L108 100 L138 130 V150 H62 V130 L92 100 L62 70 Z" fill="none" stroke="var(--accent)" stroke-width="8" stroke-linejoin="round"/>
       <path d="M74 58 H126 L100 88 Z" fill="var(--accent)"/>
       <path d="M100 112 L126 142 H74 Z" fill="var(--accent)" opacity="0.5"/>
     </svg>
@@ -188,10 +110,10 @@
   <h1>Time<span>Back</span></h1>
   <div class="header-actions">
     <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme">☀</button>
-    <div class="sync-pill" id="syncPill">
+    <button class="sync-btn" id="syncBtn" onclick="openSettings()">
       <span class="sync-dot" id="syncDot"></span>
-      <span id="syncLabel">Sync</span>
-    </div>
+      <span id="syncLabel">Setup sync</span>
+    </button>
   </div>
 </header>
 
@@ -204,52 +126,65 @@
   <div class="add-form">
     <input type="text" id="taskName" placeholder="What do you need to do?">
     <div class="time-inputs">
-      <div>
-        <label>Hours</label>
-        <input type="number" id="hh" min="0" value="0">
-      </div>
-      <div>
-        <label>Minutes</label>
-        <input type="number" id="mm" min="0" max="59" value="25">
-      </div>
-      <div>
-        <label>Seconds</label>
-        <input type="number" id="ss" min="0" max="59" value="0">
-      </div>
+      <div><label>Hours</label><input type="number" id="hh" min="0" value="0"></div>
+      <div><label>Minutes</label><input type="number" id="mm" min="0" max="59" value="25"></div>
+      <div><label>Seconds</label><input type="number" id="ss" min="0" max="59" value="0"></div>
     </div>
     <button class="add-btn" onclick="addTask()">Add task</button>
   </div>
-
   <div id="taskList"></div>
 </main>
 
-<script>
-/* =======================================================
-   GITHUB CONFIG — fill these in before uploading.
-   REPO and BRANCH are already correct for this project.
-   Only GITHUB_USER and GITHUB_TOKEN need your own values.
-   ======================================================= */
-const GITHUB_USER   = "galih141";
-const GITHUB_REPO   = "timeback-app";
-const GITHUB_BRANCH = "main";
-const GITHUB_TOKEN  = "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";
-/* ======================================================= */
+<div class="modal-backdrop" id="settingsModal">
+  <div class="modal">
+    <h2>Sync with GitHub</h2>
+    <p>This connects the app to your GitHub repo. Fill this in once on your first device. After saving, use "Copy setup link" to set up any other device instantly — no retyping.</p>
+    <label>GitHub username</label>
+    <input type="text" id="ghUser" placeholder="yourusername">
+    <label>Repo name</label>
+    <input type="text" id="ghRepo" value="timeback-app">
+    <label>Branch</label>
+    <input type="text" id="ghBranch" value="main">
+    <label>Personal access token</label>
+    <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxx">
+    <div class="modal-actions">
+      <button class="cancel" onclick="closeSettings()">Cancel</button>
+      <button class="save" onclick="saveSettings()">Save & sync</button>
+    </div>
+    <button class="copy-link-btn hidden" id="copyLinkBtn" onclick="copySetupLink()">📋 Copy setup link for other devices</button>
+  </div>
+</div>
 
+<script>
+const SETTINGS_KEY = 'timeback_settings_v1';
 const CURRENT_USER_KEY = 'timeback_current_user';
 const THEME_KEY = 'timeback_theme';
 
 let currentUser = localStorage.getItem(CURRENT_USER_KEY) || null;
+let settings = JSON.parse(localStorage.getItem(SETTINGS_KEY) || 'null');
 let tasks = [];
 let dirty = false;
 let fileSha = null;
 
-const configured = GITHUB_USER !== "PASTE_YOUR_GITHUB_USERNAME_HERE" && GITHUB_TOKEN !== "PASTE_YOUR_TOKEN_HERE";
-
 function tasksKey(){ return `timeback_tasks_${currentUser}`; }
-
 function slugify(name){
   return name.trim().toLowerCase().replace(/[^a-z0-9_-]+/g,'-').replace(/^-+|-+$/g,'') || 'user';
 }
+
+// ---------- import settings from a shared setup link ----------
+(function importFromHash(){
+  if(location.hash.startsWith('#sync=')){
+    try{
+      const encoded = location.hash.slice(6);
+      const decoded = JSON.parse(decodeURIComponent(escape(atob(encoded))));
+      if(decoded.user && decoded.repo && decoded.branch && decoded.token){
+        settings = decoded;
+        localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+      }
+    }catch(e){ /* ignore malformed hash */ }
+    history.replaceState(null, '', location.pathname);
+  }
+})();
 
 // ---------- theme ----------
 function applyTheme(t){
@@ -291,31 +226,22 @@ function enterApp(){
   document.getElementById('whoName').textContent = currentUser;
   tasks = JSON.parse(localStorage.getItem(tasksKey()) || '[]');
   render();
-  if(configured) pullThenPush(); else updateSyncBadge('err', 'Not configured');
+  if(settings) pullThenPush(); else updateSyncBadge(null);
 }
 
 function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
-
 function fmt(totalSeconds){
   totalSeconds = Math.max(0, Math.round(totalSeconds));
-  const h = Math.floor(totalSeconds/3600);
-  const m = Math.floor((totalSeconds%3600)/60);
-  const s = totalSeconds%60;
+  const h = Math.floor(totalSeconds/3600), m = Math.floor((totalSeconds%3600)/60), s = totalSeconds%60;
   const pad = n => String(n).padStart(2,'0');
   return h>0 ? `${pad(h)}:${pad(m)}:${pad(s)}` : `${pad(m)}:${pad(s)}`;
 }
-
 function fmtTarget(totalSeconds){
-  const h = Math.floor(totalSeconds/3600);
-  const m = Math.floor((totalSeconds%3600)/60);
-  const s = totalSeconds%60;
+  const h = Math.floor(totalSeconds/3600), m = Math.floor((totalSeconds%3600)/60), s = totalSeconds%60;
   let parts = [];
-  if(h) parts.push(h+'h');
-  if(m) parts.push(m+'m');
-  if(s || parts.length===0) parts.push(s+'s');
+  if(h) parts.push(h+'h'); if(m) parts.push(m+'m'); if(s || parts.length===0) parts.push(s+'s');
   return parts.join(' ');
 }
-
 function remainingOf(task){
   if(task.completed) return 0;
   if(task.running && task.startedAt){
@@ -324,84 +250,40 @@ function remainingOf(task){
   }
   return task.remainingAtStart;
 }
-
 function addTask(){
   const name = document.getElementById('taskName').value.trim();
   const hh = parseInt(document.getElementById('hh').value || '0', 10);
   const mm = parseInt(document.getElementById('mm').value || '0', 10);
   const ss = parseInt(document.getElementById('ss').value || '0', 10);
   const total = hh*3600 + mm*60 + ss;
-  if(!name || total<=0){
-    alert('Give your task a name and a time greater than 0.');
-    return;
-  }
-  tasks.unshift({
-    id: uid(),
-    name,
-    targetSeconds: total,
-    remainingAtStart: total,
-    running: false,
-    startedAt: null,
-    completed: false,
-    updatedAt: Date.now()
-  });
+  if(!name || total<=0){ alert('Give your task a name and a time greater than 0.'); return; }
+  tasks.unshift({ id: uid(), name, targetSeconds: total, remainingAtStart: total, running:false, startedAt:null, completed:false, updatedAt: Date.now() });
   document.getElementById('taskName').value = '';
-  save();
-  render();
+  save(); render();
 }
-
 function startTask(id){
-  const t = tasks.find(x=>x.id===id);
-  if(!t || t.completed) return;
-  t.running = true;
-  t.startedAt = Date.now();
-  t.updatedAt = Date.now();
+  const t = tasks.find(x=>x.id===id); if(!t || t.completed) return;
+  t.running = true; t.startedAt = Date.now(); t.updatedAt = Date.now();
   save(); render();
 }
-
 function pauseTask(id){
-  const t = tasks.find(x=>x.id===id);
-  if(!t || !t.running) return;
-  t.remainingAtStart = remainingOf(t);
-  t.running = false;
-  t.startedAt = null;
-  t.updatedAt = Date.now();
+  const t = tasks.find(x=>x.id===id); if(!t || !t.running) return;
+  t.remainingAtStart = remainingOf(t); t.running = false; t.startedAt = null; t.updatedAt = Date.now();
   save(); render();
 }
-
 function resetTask(id){
-  const t = tasks.find(x=>x.id===id);
-  if(!t) return;
-  t.remainingAtStart = t.targetSeconds;
-  t.running = false;
-  t.startedAt = null;
-  t.completed = false;
-  t.updatedAt = Date.now();
+  const t = tasks.find(x=>x.id===id); if(!t) return;
+  t.remainingAtStart = t.targetSeconds; t.running = false; t.startedAt = null; t.completed = false; t.updatedAt = Date.now();
   save(); render();
 }
-
-function deleteTask(id){
-  tasks = tasks.filter(x=>x.id!==id);
-  save(); render();
-}
-
-function save(){
-  localStorage.setItem(tasksKey(), JSON.stringify(tasks));
-  dirty = true;
-  scheduleSync();
-}
-
+function deleteTask(id){ tasks = tasks.filter(x=>x.id!==id); save(); render(); }
+function save(){ localStorage.setItem(tasksKey(), JSON.stringify(tasks)); dirty = true; scheduleSync(); }
 function render(){
   const list = document.getElementById('taskList');
-  if(tasks.length===0){
-    list.innerHTML = '<div class="empty">No tasks yet. Add one above and give it a time.</div>';
-    return;
-  }
+  if(tasks.length===0){ list.innerHTML = '<div class="empty">No tasks yet. Add one above and give it a time.</div>'; return; }
   list.innerHTML = tasks.map(t=>{
     const rem = remainingOf(t);
-    if(t.running && rem<=0 && !t.completed){
-      t.completed = true; t.running = false; t.startedAt = null; t.remainingAtStart = 0;
-    }
+    if(t.running && rem<=0 && !t.completed){ t.completed = true; t.running = false; t.startedAt = null; t.remainingAtStart = 0; }
     const cls = t.completed ? 'done' : (t.running ? 'running' : '');
     return `
     <div class="task ${cls}">
@@ -428,120 +310,106 @@ function render(){
     </div>`;
   }).join('');
 }
-
-function escapeHtml(s){
-  const d = document.createElement('div');
-  d.textContent = s;
-  return d.innerHTML;
-}
-
-setInterval(()=>{
-  if(tasks.some(t=>t.running)) render();
-}, 1000);
+function escapeHtml(s){ const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+setInterval(()=>{ if(tasks.some(t=>t.running)) render(); }, 1000);
 
 // ---------- GitHub sync ----------
 let syncTimer = null;
 function scheduleSync(){
   updateSyncBadge('pending');
-  if(!configured) return;
+  if(!settings) return;
   clearTimeout(syncTimer);
   syncTimer = setTimeout(pushToGitHub, 1500);
 }
-
-function updateSyncBadge(state, customLabel){
+function updateSyncBadge(state){
   const dot = document.getElementById('syncDot');
   const label = document.getElementById('syncLabel');
   if(!dot) return;
   dot.className = 'sync-dot' + (state ? ' '+state : '');
-  if(customLabel){ label.textContent = customLabel; return; }
+  if(!settings){ label.textContent = 'Setup sync'; return; }
   if(state==='ok') label.textContent = 'Synced';
   else if(state==='pending') label.textContent = 'Syncing…';
   else if(state==='err') label.textContent = 'Sync failed';
-  else label.textContent = 'Sync';
+  else label.textContent = settings.repo;
 }
-
+function openSettings(){
+  if(settings){
+    document.getElementById('ghUser').value = settings.user;
+    document.getElementById('ghRepo').value = settings.repo;
+    document.getElementById('ghBranch').value = settings.branch;
+    document.getElementById('ghToken').value = settings.token;
+    document.getElementById('copyLinkBtn').classList.remove('hidden');
+  } else {
+    document.getElementById('copyLinkBtn').classList.add('hidden');
+  }
+  document.getElementById('settingsModal').classList.add('open');
+}
+function closeSettings(){ document.getElementById('settingsModal').classList.remove('open'); }
+function saveSettings(){
+  const user = document.getElementById('ghUser').value.trim();
+  const repo = document.getElementById('ghRepo').value.trim();
+  const branch = document.getElementById('ghBranch').value.trim() || 'main';
+  const token = document.getElementById('ghToken').value.trim();
+  if(!user || !repo || !token){ alert('Fill in username, repo, and token.'); return; }
+  settings = { user, repo, branch, token };
+  localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+  document.getElementById('copyLinkBtn').classList.remove('hidden');
+  fileSha = null;
+  pullThenPush();
+}
+function copySetupLink(){
+  if(!settings){ alert('Save your GitHub settings first.'); return; }
+  const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(settings))));
+  const link = location.origin + location.pathname + '#sync=' + encoded;
+  navigator.clipboard.writeText(link).then(()=>{
+    alert('Setup link copied! Send it to your other device and open it once — sync will configure itself automatically.');
+  }).catch(()=>{
+    prompt('Copy this link manually:', link);
+  });
+}
 function apiUrl(){
-  return `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/user/${currentUser}/tasks.json`;
+  return `https://api.github.com/repos/${settings.user}/${settings.repo}/contents/user/${currentUser}/tasks.json`;
 }
-
 async function pullFromGitHub(){
-  if(!configured || !currentUser) return null;
+  if(!settings || !currentUser) return null;
   updateSyncBadge('pending');
   try{
-    const res = await fetch(apiUrl() + `?ref=${GITHUB_BRANCH}`, {
-      headers: { 'Authorization': `token ${GITHUB_TOKEN}`, 'Accept': 'application/vnd.github+json' }
-    });
+    const res = await fetch(apiUrl() + `?ref=${settings.branch}`, { headers: { 'Authorization': `token ${settings.token}`, 'Accept': 'application/vnd.github+json' } });
     if(res.status===404){ fileSha=null; return null; }
     if(!res.ok) throw new Error('pull failed');
     const data = await res.json();
     fileSha = data.sha;
-    const content = JSON.parse(decodeURIComponent(escape(atob(data.content))));
-    return content;
-  }catch(e){
-    updateSyncBadge('err');
-    return null;
-  }
+    return JSON.parse(decodeURIComponent(escape(atob(data.content))));
+  }catch(e){ updateSyncBadge('err'); return null; }
 }
-
 async function pushToGitHub(){
-  if(!configured || !currentUser) return;
+  if(!settings || !currentUser) return;
   updateSyncBadge('pending');
   try{
-    const body = {
-      message: `Update tasks for ${currentUser} ` + new Date().toISOString(),
-      content: btoa(unescape(encodeURIComponent(JSON.stringify(tasks, null, 2)))),
-      branch: GITHUB_BRANCH
-    };
+    const body = { message: `Update tasks for ${currentUser} ` + new Date().toISOString(), content: btoa(unescape(encodeURIComponent(JSON.stringify(tasks, null, 2)))), branch: settings.branch };
     if(fileSha) body.sha = fileSha;
-    const res = await fetch(apiUrl(), {
-      method: 'PUT',
-      headers: {
-        'Authorization': `token ${GITHUB_TOKEN}`,
-        'Accept': 'application/vnd.github+json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    });
-    if(!res.ok){
-      if(res.status===409){ await pullThenPush(); return; }
-      throw new Error('push failed');
-    }
+    const res = await fetch(apiUrl(), { method: 'PUT', headers: { 'Authorization': `token ${settings.token}`, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    if(!res.ok){ if(res.status===409){ await pullThenPush(); return; } throw new Error('push failed'); }
     const data = await res.json();
-    fileSha = data.content.sha;
-    dirty = false;
-    updateSyncBadge('ok');
-  }catch(e){
-    updateSyncBadge('err');
-  }
+    fileSha = data.content.sha; dirty = false; updateSyncBadge('ok');
+  }catch(e){ updateSyncBadge('err'); }
 }
-
 async function pullThenPush(){
   const remote = await pullFromGitHub();
   if(remote){
     const remoteNewest = Math.max(0, ...remote.map(t=>t.updatedAt||0));
     const localNewest = Math.max(0, ...tasks.map(t=>t.updatedAt||0));
     if(remoteNewest > localNewest){
-      tasks = remote;
-      localStorage.setItem(tasksKey(), JSON.stringify(tasks));
-      render();
-      updateSyncBadge('ok');
-      return;
+      tasks = remote; localStorage.setItem(tasksKey(), JSON.stringify(tasks)); render(); updateSyncBadge('ok'); return;
     }
   }
   await pushToGitHub();
 }
-
 window.addEventListener('online', ()=>{ if(dirty) pushToGitHub(); });
 
-// init
-if(currentUser){
-  enterApp();
-}
-
+if(currentUser){ enterApp(); }
 if('serviceWorker' in navigator){
-  window.addEventListener('load', ()=>{
-    navigator.serviceWorker.register('sw.js').catch(()=>{});
-  });
+  window.addEventListener('load', ()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); });
 }
 </script>
 </body>
