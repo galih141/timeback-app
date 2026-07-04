@@ -4,10 +4,10 @@
     "name": "Generate coloring book",
     "targetSeconds": 4500,
     "remainingAtStart": 4247.043,
-    "running": false,
-    "startedAt": null,
+    "running": true,
+    "startedAt": 1783147040075,
     "completed": false,
-    "updatedAt": 1783129465563
+    "updatedAt": 1783147040075
   },
   {
     "id": "mr4nye1aiiww2",
