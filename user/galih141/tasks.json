@@ -3,11 +3,11 @@
     "id": "mr4nyypjo5hdt",
     "name": "Generate coloring book",
     "targetSeconds": 4500,
-    "remainingAtStart": 4500,
-    "running": true,
-    "startedAt": 1783162441867,
+    "remainingAtStart": 4497.894,
+    "running": false,
+    "startedAt": null,
     "completed": false,
-    "updatedAt": 1783162441867
+    "updatedAt": 1783162443973
   },
   {
     "id": "mr4nye1aiiww2",
