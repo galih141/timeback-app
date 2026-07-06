@@ -3,11 +3,11 @@
     "id": "mr8lpvg8r5tc0",
     "name": "Working on elemen taru",
     "targetSeconds": 12300,
-    "remainingAtStart": 12300,
-    "running": true,
-    "startedAt": 1783304944123,
+    "remainingAtStart": 12229.604,
+    "running": false,
+    "startedAt": null,
     "completed": false,
-    "updatedAt": 1783304944123
+    "updatedAt": 1783305014519
   },
   {
     "id": "mr4nyypjo5hdt",
