@@ -20,16 +20,6 @@
     "updatedAt": 1783304929302
   },
   {
-    "id": "mr4nye1aiiww2",
-    "name": "Learn Unity",
-    "targetSeconds": 3600,
-    "remainingAtStart": 3600,
-    "running": false,
-    "startedAt": null,
-    "completed": false,
-    "updatedAt": 1783066833550
-  },
-  {
     "id": "mr4ny0wrfnwbb",
     "name": "Content creation",
     "targetSeconds": 5400,
