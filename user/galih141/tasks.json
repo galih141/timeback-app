@@ -30,16 +30,6 @@
     "updatedAt": 1783066816539
   },
   {
-    "id": "mr4nxqe50003z",
-    "name": "Working",
-    "targetSeconds": 5400,
-    "remainingAtStart": 5400,
-    "running": false,
-    "startedAt": null,
-    "completed": false,
-    "updatedAt": 1783066802909
-  },
-  {
     "id": "mr4nc8srah53d",
     "name": "Book reading",
     "targetSeconds": 1800,
