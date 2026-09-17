@@ -1,15 +1,5 @@
 [
   {
-    "id": "mu4rf0hcpdnfp",
-    "name": "Generate a things",
-    "targetSeconds": 5100,
-    "remainingAtStart": 5082.57,
-    "running": true,
-    "startedAt": 1789604193121,
-    "completed": false,
-    "updatedAt": 1789604193121
-  },
-  {
     "id": "mr8lpvg8r5tc0",
     "name": "Working on elemen taru",
     "targetSeconds": 12300,
