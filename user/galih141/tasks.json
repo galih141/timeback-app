@@ -6,10 +6,10 @@
     "targetSeconds": 5100,
     "remainingAtStart": 5100,
     "elapsedAtStart": 5.384,
-    "running": false,
-    "startedAt": null,
+    "running": true,
+    "startedAt": 1789604839590,
     "completed": false,
-    "updatedAt": 1789604268195
+    "updatedAt": 1789604839590
   },
   {
     "id": "mr8lpvg8r5tc0",
