@@ -5,11 +5,11 @@
     "direction": "up",
     "targetSeconds": 5100,
     "remainingAtStart": 5100,
-    "elapsedAtStart": 8303.135,
+    "elapsedAtStart": 0,
     "running": false,
     "startedAt": null,
-    "completed": true,
-    "updatedAt": 1789613142872
+    "completed": false,
+    "updatedAt": 1789613147948
   },
   {
     "id": "mr8lpvg8r5tc0",
