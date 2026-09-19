@@ -15,11 +15,12 @@
     "id": "mr8lpvg8r5tc0",
     "name": "Working on elemen taru",
     "targetSeconds": 12300,
-    "remainingAtStart": 0,
+    "remainingAtStart": 12300,
     "running": false,
     "startedAt": null,
-    "completed": true,
-    "updatedAt": 1789649990098
+    "completed": false,
+    "updatedAt": 1789796293065,
+    "elapsedAtStart": 0
   },
   {
     "id": "mr4nyypjo5hdt",
